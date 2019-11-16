@@ -34,7 +34,7 @@ int main() {
         {
             if(event->mask & IN_CREATE)
             {
-                if(event->mask & IN_ISDR)
+                if(event->mask & IN_ISDIR)
                 {
                     printf("Directorio %s fue creado", event->name);
                 }
