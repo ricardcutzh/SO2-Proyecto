@@ -37,27 +37,27 @@ int main() {
             {
                 if(event->mask & IN_ISDIR)
                 {
-                    printf("Directorio %s fue creado", event->name);
+                    printf("Directorio %s fue creado\n", event->name);
                 }
                 else
                 {
-                    printf("Archivo %s fue creado", event->name);
+                    printf("Archivo %s fue creado\n", event->name);
                 }
             } else if(event->mask & IN_DELETE)
             {
                 if(event->mask & IN_ISDIR)
                 {
-                    printf("Directorio %s fue eliminado", event->name);
+                    printf("Directorio %s fue eliminado\n", event->name);
                 }
                 else
                 {
-                    printf("Archivo %s fue eliminado", event->name);
+                    printf("Archivo %s fue eliminado\n", event->name);
                 }
             } else if(event->mask & IN_MODIFY)
             {
                 if(event->mask & IN_ISDIR)
                 {
-                    printf("Directorio %s fue modificado", event->name);
+                    printf("Directorio %s fue modificado\n", event->name);
                 }
                 else
                 {
