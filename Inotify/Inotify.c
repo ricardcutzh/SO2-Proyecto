@@ -18,6 +18,7 @@ void write_log(char *evento_nombre, char* accion)
     {
         fprintf(f, "Log: %s | Accion: %s | Time: | Date: \n", evento_nombre, accion);
     }
+    fclose(f);
 }
 
 int main() {
