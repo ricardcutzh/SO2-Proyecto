@@ -12,13 +12,25 @@
 
 void write_log(char *evento_nombre, char* accion)
 {
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    char * fecha = asctime(tm);
+
     FILE *f;
     f = fopen("201503476_log.log", "a+");
     if(f != NULL)
     {
-        fprintf(f, "Log: %s | Accion: %s | Time: | Date: \n", evento_nombre, accion);
+        fprintf(f, "Log: %s | Accion: %s | Date: %s \n", evento_nombre, accion, fecha);
     }
     fclose(f);
+}
+
+void console_log(char *evento, char* accion)
+{
+    time_t t = time(NULL);
+    struct tm *tm = localtime(&t);
+    char * fecha = asctime(tm);
+    printf("Log: %s | Accion: %s |Date: %s \n", event->name, accion, fecha);
 }
 
 int main() {
@@ -57,37 +69,37 @@ int main() {
                 {
                     if(event->mask & IN_ISDIR)
                     {
-                        printf("Directorio %s fue creado\n", event->name);
+                        console_log(event->name, "Directorio Creado");
                         write_log(event->name, "Directorio Creado");
                     }
                     else
                     {
-                        printf("Archivo %s fue creado\n", event->name);
+                        console_log(event->name, "Archivo Creado");
                         write_log(event->name, "Archivo Creado");
                     }
                 } else if(event->mask & IN_DELETE)
                 {
                     if(event->mask & IN_ISDIR)
                     {
-                        printf("Directorio %s fue eliminado\n", event->name);
-                        write_log(event->name, "Directorio eliminado");
+                        console_log(event->name, "Directorio Eliminado");
+                        write_log(event->name, "Directorio Eliminado");
                     }
                     else
                     {
-                        printf("Archivo %s fue eliminado\n", event->name);
-                        write_log(event->name, "Archivo eliminado");
+                        console_log(event->name, "Archivo Eliminado");
+                        write_log(event->name, "Archivo Eliminado");
                     }
                 } else if(event->mask & IN_MODIFY)
                 {
                     if(event->mask & IN_ISDIR)
                     {
-                        printf("Directorio %s fue modificado\n", event->name);
-                        write_log(event->name, "Directorio modificado");
+                        console_log(event->name, "Directorio Modificado");
+                        write_log(event->name, "Directorio Modificado");
                     }
                     else
                     {
-                        printf("Archivo %s fue modificado\n", event->name);
-                        write_log(event->name, "Directorio modificado");
+                        console_log(event->name, "Archivo Modificado");
+                        write_log(event->name, "Archivo modificado");
                     }
                 } 
                 i += EVENT_SIZE + event->len;
