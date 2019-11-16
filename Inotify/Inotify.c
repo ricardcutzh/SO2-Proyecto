@@ -28,7 +28,7 @@ int main() {
 
     int offset = 0;
 
-    while(offset < length)
+    while(1)
     {
         struct inotify_event *event = (struct inotify_event *) &buffer[offset];
         if(event->len)
