@@ -9,6 +9,7 @@
 #define BUF_LEN     ( 1024 * EVENT_SIZE )
 
 int main() {
+    int length, i = 0;
     char buffer[BUF_LEN];
     int filedescriptor = inotify_init(); // DEVUELVE UN DESCRIPTOR
 
@@ -20,7 +21,7 @@ int main() {
     // CREANDO EL MONITOR QUE QUEREMOS ESCUCHAR
     int watch_descriptor = inotify_add_watch(filedescriptor, "/", IN_MODIFY | IN_CREATE | IN_DELETE);
 
-    int length = read(filedescriptor, buffer, BUF_LEN);
+    length = read(filedescriptor, buffer, BUF_LEN);
     if(length < 0)
     {
         perror("lectura");
@@ -28,9 +29,9 @@ int main() {
 
     int offset = 0;
 
-    while(1)
+    while(i < length)
     {
-        struct inotify_event *event = (struct inotify_event *) &buffer[offset];
+        struct inotify_event *event = (struct inotify_event *) &buffer[i];
         if(event->len)
         {
             if(event->mask & IN_CREATE)
@@ -64,7 +65,7 @@ int main() {
                     printf("Archivo %s fue modificado", event->name);
                 }
             }
-            offset += sizeof(struct inotify_event) + event->len;
+            i += EVENT_SIZE + event->len;
         }
 
         inotify_rm_watch(filedescriptor, watch_descriptor);
