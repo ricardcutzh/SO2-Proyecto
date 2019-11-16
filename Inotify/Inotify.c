@@ -25,7 +25,7 @@ void write_log(char *evento_nombre, char* accion)
     fclose(f);
 }
 
-void console_log(char *evento, char* accion)
+void console_log(char *event, char* accion)
 {
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
