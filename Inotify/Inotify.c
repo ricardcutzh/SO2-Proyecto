@@ -30,7 +30,7 @@ void console_log(char *event, char* accion)
     time_t t = time(NULL);
     struct tm *tm = localtime(&t);
     char * fecha = asctime(tm);
-    printf("Log: %s | Accion: %s |Date: %s \n", event->name, accion, fecha);
+    printf("Log: %s | Accion: %s |Date: %s \n", event, accion, fecha);
 }
 
 int main() {
