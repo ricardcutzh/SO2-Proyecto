@@ -73,12 +73,9 @@ int main() {
                 }
                 i += EVENT_SIZE + event->len;
             }
-
-            inotify_rm_watch(filedescriptor, watch_descriptor);
-            close(filedescriptor);
-
-            return EXIT_SUCCESS;
         }
     }
-    return 0;
+    inotify_rm_watch(filedescriptor, watch_descriptor);
+    close(filedescriptor);
+    return EXIT_SUCCESS;
 }
