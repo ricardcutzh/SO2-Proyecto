@@ -1,8 +1,9 @@
 #include <stdio.h>
+#include <unistd.h>
 #include <stdlib.h>
 #include <errno.h>
 #include <sys/types.h>
-#include <linux/inotify.h>
+#include <sys/inotify.h>
 
 #define EVENT_SIZE  ( sizeof (struct inotify_event) + 24 )
 #define BUF_LEN     ( 1024 * EVENT_SIZE )
@@ -44,7 +45,7 @@ int main() {
                 }
             } else if(event->mask & IN_DELETE)
             {
-                if(event->mask & IN_ISDR)
+                if(event->mask & IN_ISDIR)
                 {
                     printf("Directorio %s fue eliminado", event->name);
                 }
@@ -54,7 +55,7 @@ int main() {
                 }
             } else if(event->mask & IN_MODIFY)
             {
-                if(event->mask & IN_ISDR)
+                if(event->mask & IN_ISDIR)
                 {
                     printf("Directorio %s fue modificado", event->name);
                 }
