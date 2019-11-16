@@ -4,9 +4,21 @@
 #include <errno.h>
 #include <sys/types.h>
 #include <sys/inotify.h>
+#include <time.h>
+#include <limits.h>
 
 #define EVENT_SIZE  ( sizeof (struct inotify_event) )
 #define BUF_LEN      ( 1024 * ( EVENT_SIZE + 16 ) )
+
+void write_log(char *evento_nombre, char* accion)
+{
+    FILE *f;
+    f = fopen("201503476_log.log", "a+");
+    if(f != NULL)
+    {
+        fprintf(f, "Log: %s | Accion: %s | Time: | Date: \n", evento_nombre, accion);
+    }
+}
 
 int main() {
     int length, i = 0;
@@ -45,32 +57,38 @@ int main() {
                     if(event->mask & IN_ISDIR)
                     {
                         printf("Directorio %s fue creado\n", event->name);
+                        write_log(event->name, "Directorio Creado");
                     }
                     else
                     {
                         printf("Archivo %s fue creado\n", event->name);
+                        write_log(event->name, "Archivo Creado");
                     }
                 } else if(event->mask & IN_DELETE)
                 {
                     if(event->mask & IN_ISDIR)
                     {
                         printf("Directorio %s fue eliminado\n", event->name);
+                        write_log(event->name, "Directorio eliminado");
                     }
                     else
                     {
                         printf("Archivo %s fue eliminado\n", event->name);
+                        write_log(event->name, "Archivo eliminado");
                     }
                 } else if(event->mask & IN_MODIFY)
                 {
                     if(event->mask & IN_ISDIR)
                     {
                         printf("Directorio %s fue modificado\n", event->name);
+                        write_log(event->name, "Directorio modificado");
                     }
                     else
                     {
                         printf("Archivo %s fue modificado\n", event->name);
+                        write_log(event->name, "Directorio modificado");
                     }
-                }
+                } 
                 i += EVENT_SIZE + event->len;
             }
         }
